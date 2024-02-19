@@ -20,16 +20,17 @@ class _FeedCardState extends State<FeedCard> {
   @override
   Widget build(BuildContext context) {
     bool isDescBig = false;
+    bool isTitleBig = widget.data.title.length > 75;
     if (widget.data.description != null) {
       isDescBig = widget.data.description!.length > 200;
     }
     return Stack(
       alignment: Alignment.bottomRight,
-      children: [newsInfo(isDescBig), newsControls()],
+      children: [newsInfo(isTitleBig, isDescBig), newsControls()],
     );
   }
 
-  Padding newsInfo(bool isDescBig) => Padding(
+  Padding newsInfo(bool isTitleBig, bool isDescBig) => Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
@@ -44,7 +45,7 @@ class _FeedCardState extends State<FeedCard> {
             ),
             SizedBox(height: isDescBig ? 0 : 20),
             Text(
-              !isDescBig ? widget.data.content ?? "" : "",
+              (!isDescBig && !isTitleBig) ? widget.data.content ?? "" : "",
               style: const TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 20),
@@ -54,6 +55,8 @@ class _FeedCardState extends State<FeedCard> {
                 widget.data.urlToImage ??
                     "https://media.istockphoto.com/id/1409329028/vector/no-picture-available-placeholder-thumbnail-icon-illustration-design.jpg?s=612x612&w=0&k=20&c=_zOuJu755g2eEUioiOUdz_mHKJQJn-tDgIAhQzyeKUQ=",
                 fit: BoxFit.cover,
+                height: 200,
+                width: double.infinity,
               ),
             ),
           ],
