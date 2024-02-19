@@ -33,6 +33,7 @@ class _FeedCardState extends State<FeedCard> {
   Padding newsInfo(bool isTitleBig, bool isDescBig) => Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               widget.data.title,
